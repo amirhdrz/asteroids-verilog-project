@@ -16,6 +16,8 @@ wire sample_clk;
 
 clk_60hz (clk,sample_clk);
 
+/* Movement */
+// Sample user input to go left or right
 always @(posedge sample_clk) begin
 	if(left)
 		shipX <= shipX-2;
@@ -23,6 +25,7 @@ always @(posedge sample_clk) begin
 		shipX <= shipX+2;
 end
 
+/* Display generator */
 always @(x)
 begin
 	
