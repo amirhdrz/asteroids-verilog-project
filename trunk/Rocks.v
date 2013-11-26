@@ -32,9 +32,10 @@ parameter borderYi = -15;
 parameter borderYf = 480;
 
 /* Registers */
-// Rock's position on the screen
-reg [9:0] rockX;
-reg [9:0] rockY;
+// Rock's position and direction on the screen
+reg [9:0] rockX, rockY;
+reg [2:0] rockDirX, rockDirY;
+
 
 /* Movement generator and initialization based on 60hz clock and reset */
 always @ (posedge clk60hz or posedge reset) begin
@@ -49,20 +50,22 @@ always @ (posedge clk60hz or posedge reset) begin
 				inUse <= 1'b1;
 				rockX <= initialX;
 				rockY <= initialY;
+				rockDirX <= dirX;
+				rockDirY <= dirY;
 			end
 			
 		end else begin
 			// if in use, calculate next coordinates on 60hz clock
-			if (dirX[2] == 1'b0) begin
-					rockX <= rockX + dirX[1:0];
+			if (rockDirX[2] == 1'b0) begin
+					rockX <= rockX + rockDirX[1:0];
 			end else begin
-					rockX <= rockX - dirX[1:0];
+					rockX <= rockX - rockDirX[1:0];
 			end
 			
-			if (dirY[2] == 1'b0) begin
-				rockY <= rockY + dirY[1:0];
+			if (rockDirY[2] == 1'b0) begin
+				rockY <= rockY + rockDirY[1:0];
 			end else begin
-				rockY <= rockY - dirY[1:0];
+				rockY <= rockY - rockDirY[1:0];
 			end
 		end
 	end //if (~reset)

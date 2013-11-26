@@ -81,20 +81,24 @@ clk_5seconds(
 /* Shooting mechanism */
 wire shoot = (shootUp || shootDown);
 reg [3:0] fire;
+reg prvCycleShoot = 1'b0;
 
-always @ (posedge shoot) begin
-
-		fire = 4'b0000; 
-		
-		if (~inUse[0])
-			fire[0] = 1'b1;
-		else if (~inUse[1])
-			fire[1] = 1'b1;
-		else if (~inUse[2])
-			fire[2] = 1'b1;
-		else if (~inUse[3])
-			fire[3] = 1'b1;
-	
+always @ (posedge clk_60hz) begin
+	fire = 4'b0000;
+	if (~prvCycleShoot) begin
+		if (shoot) begin
+			prvCycleShoot = 1'b1;
+			if (~inUse[0])
+				fire[0] = 1'b1;
+			else if (~inUse[1])
+				fire[1] = 1'b1;
+			else if (~inUse[2])
+				fire[2] = 1'b1;
+			else if (~inUse[3])
+				fire[3] = 1'b1;
+		end
+	end else if (~shoot)
+		prvCycleShoot <= 1'b0;
 end
 
 endmodule

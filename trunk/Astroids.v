@@ -116,14 +116,14 @@ Bullet_Man Bm1(
 );
 
 /* Rocks manager */
-/*
+
 Rocks_Man(
 	.px(mCoord_X),
 	.py(mCoord_Y),
 	.clk60hz(sample_clk),
 	.reset(reset[14:5]),
 	.pixel(BW[14:5])
-);*/
+);
 
 /* Convert pixel values to RGB */
 wire pixel;

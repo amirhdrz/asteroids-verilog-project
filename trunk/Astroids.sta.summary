@@ -3,28 +3,24 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow Model Setup 'clk_60hz:comb_145|q'
-Slack : -5.465
-TNS   : -445.256
+Slack : -2.931
+TNS   : -332.476
 
 Type  : Slow Model Setup 'CLOCK_50'
-Slack : -3.129
-TNS   : -59.614
+Slack : -2.916
+TNS   : -55.645
 
-Type  : Slow Model Setup 'KEY[0]'
-Slack : 0.379
-TNS   : 0.000
+Type  : Slow Model Setup 'Rocks_Man:comb_165|Clk2sec:comb_8|q'
+Slack : -0.715
+TNS   : -2.297
 
 Type  : Slow Model Setup 'CLOCK_27'
-Slack : 33.437
+Slack : 33.442
 TNS   : 0.000
 
 Type  : Slow Model Setup 'p1|altpll_component|pll|clk[0]'
-Slack : 35.820
+Slack : 36.061
 TNS   : 0.000
-
-Type  : Slow Model Hold 'KEY[0]'
-Slack : -2.355
-TNS   : -9.294
 
 Type  : Slow Model Hold 'CLOCK_50'
 Slack : 0.391
@@ -39,12 +35,16 @@ Slack : 0.391
 TNS   : 0.000
 
 Type  : Slow Model Hold 'CLOCK_27'
-Slack : 0.742
+Slack : 0.758
+TNS   : 0.000
+
+Type  : Slow Model Hold 'Rocks_Man:comb_165|Clk2sec:comb_8|q'
+Slack : 0.792
 TNS   : 0.000
 
 Type  : Slow Model Recovery 'p1|altpll_component|pll|clk[0]'
-Slack : -3.913
-TNS   : -83.656
+Slack : -3.908
+TNS   : -83.629
 
 Type  : Slow Model Removal 'p1|altpll_component|pll|clk[0]'
 Slack : 3.475
@@ -54,13 +54,13 @@ Type  : Slow Model Minimum Pulse Width 'CLOCK_50'
 Slack : -1.380
 TNS   : -22.380
 
-Type  : Slow Model Minimum Pulse Width 'KEY[0]'
-Slack : -1.222
-TNS   : -5.222
-
 Type  : Slow Model Minimum Pulse Width 'clk_60hz:comb_145|q'
 Slack : -0.500
-TNS   : -89.000
+TNS   : -226.000
+
+Type  : Slow Model Minimum Pulse Width 'Rocks_Man:comb_165|Clk2sec:comb_8|q'
+Slack : -0.500
+TNS   : -4.000
 
 Type  : Slow Model Minimum Pulse Width 'CLOCK_27'
 Slack : 17.518
@@ -70,29 +70,25 @@ Type  : Slow Model Minimum Pulse Width 'p1|altpll_component|pll|clk[0]'
 Slack : 18.841
 TNS   : 0.000
 
-Type  : Fast Model Setup 'clk_60hz:comb_145|q'
-Slack : -2.524
-TNS   : -200.547
-
 Type  : Fast Model Setup 'CLOCK_50'
-Slack : -0.938
-TNS   : -16.871
+Slack : -0.833
+TNS   : -14.875
 
-Type  : Fast Model Setup 'KEY[0]'
-Slack : 0.665
+Type  : Fast Model Setup 'clk_60hz:comb_145|q'
+Slack : -0.761
+TNS   : -52.592
+
+Type  : Fast Model Setup 'Rocks_Man:comb_165|Clk2sec:comb_8|q'
+Slack : 0.193
 TNS   : 0.000
 
 Type  : Fast Model Setup 'CLOCK_27'
-Slack : 35.348
+Slack : 35.331
 TNS   : 0.000
 
 Type  : Fast Model Setup 'p1|altpll_component|pll|clk[0]'
-Slack : 37.930
+Slack : 38.048
 TNS   : 0.000
-
-Type  : Fast Model Hold 'KEY[0]'
-Slack : -1.042
-TNS   : -4.073
 
 Type  : Fast Model Hold 'CLOCK_50'
 Slack : 0.215
@@ -107,12 +103,16 @@ Slack : 0.215
 TNS   : 0.000
 
 Type  : Fast Model Hold 'CLOCK_27'
-Slack : 0.341
+Slack : 0.351
+TNS   : 0.000
+
+Type  : Fast Model Hold 'Rocks_Man:comb_165|Clk2sec:comb_8|q'
+Slack : 0.361
 TNS   : 0.000
 
 Type  : Fast Model Recovery 'p1|altpll_component|pll|clk[0]'
-Slack : -2.445
-TNS   : -52.665
+Slack : -2.444
+TNS   : -52.653
 
 Type  : Fast Model Removal 'p1|altpll_component|pll|clk[0]'
 Slack : 2.231
@@ -122,13 +122,13 @@ Type  : Fast Model Minimum Pulse Width 'CLOCK_50'
 Slack : -1.380
 TNS   : -22.380
 
-Type  : Fast Model Minimum Pulse Width 'KEY[0]'
-Slack : -1.222
-TNS   : -5.222
-
 Type  : Fast Model Minimum Pulse Width 'clk_60hz:comb_145|q'
 Slack : -0.500
-TNS   : -89.000
+TNS   : -226.000
+
+Type  : Fast Model Minimum Pulse Width 'Rocks_Man:comb_165|Clk2sec:comb_8|q'
+Slack : -0.500
+TNS   : -4.000
 
 Type  : Fast Model Minimum Pulse Width 'CLOCK_27'
 Slack : 17.518

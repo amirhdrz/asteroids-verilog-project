@@ -37,6 +37,24 @@ module Clk2sec( input clk60hz, output reg q);
 	end
 endmodule
 
+/* Generate random coordinate on the edge of the monitor based
+on the 16 bit random numbers A and B*/
+module rand_coordinates(A, B, X, Y);
+	input [15:0] A, B;
+	output [9:0] X, Y;
+	
+	wire [9:0] Xedge, Yedge;
+	
+	/* Set edge coordinate randomly based on A[10] */
+	assign Xedge = (A[10]? 10'd0 : 10'd640);
+	assign Yedge = (A[10]? 10'd0 : 10'd480);
+	
+	/* if A[11] is high:(X,Y)=(A,Yedge), if low: (X,Y)=(Xedge,B) */
+	assign X = (A[11]? A[9:0] : Xedge);
+	assign Y = (A[11]? Yedge : B[9:0]);
+
+endmodule
+
 module Rocks_Man(
 input [9:0] px,
 input [9:0] py,
@@ -51,10 +69,14 @@ output [9:0] pixel
 	wire [9:0] rocks_in_use;
 	
 	/* Random number generator */
-	wire [15:0] randomX;
-	wire [15:0] randomY;
-	fib_16bit(clk60hz, randomX);
-	fib_16bit(clk60hz, randomY);
+	/* choose between X and Y, asteroid always has to appear on one of the edges of the screen */
+	wire [15:0] randomA, randomB;
+	fib_16bit(clk60hz, randomA);
+	fib_16bit(clk60hz, randomB);
+	
+	/* Random coordinate generator based on randomA and randomB */
+	wire [9:0] randomX, randomY;
+	rand_coordinates(randomA, randomB, randomX, randomY);
 	
 	/* Random direction generator */
 	wire [2:0] ranDirX;
@@ -99,8 +121,8 @@ output [9:0] pixel
 	//inputs
 	.px(px),
 	.py(py),
-	.initialX(randomX[9:0]),
-	.initialY(randomY[9:0]),
+	.initialX(randomX),
+	.initialY(randomY),
 	.dirX(ranDirX),
 	.dirY(ranDirY),
 	.start(fire[0]),
@@ -115,8 +137,8 @@ output [9:0] pixel
 	//inputs
 	.px(px),
 	.py(py),
-	.initialX(randomX[9:0]),
-	.initialY(randomY[9:0]),
+	.initialX(randomX),
+	.initialY(randomY),
 	.dirX(ranDirX),
 	.dirY(ranDirY),
 	.start(fire[1]),
@@ -131,8 +153,8 @@ output [9:0] pixel
 	//inputs
 	.px(px),
 	.py(py),
-	.initialX(randomX[9:0]),
-	.initialY(randomY[9:0]),
+	.initialX(randomX),
+	.initialY(randomY),
 	.dirX(ranDirX),
 	.dirY(ranDirY),
 	.start(fire[2]),
@@ -147,8 +169,8 @@ output [9:0] pixel
 	//inputs
 	.px(px),
 	.py(py),
-	.initialX(randomX[9:0]),
-	.initialY(randomY[9:0]),
+	.initialX(randomX),
+	.initialY(randomY),
 	.dirX(ranDirX),
 	.dirY(ranDirY),
 	.start(fire[3]),
