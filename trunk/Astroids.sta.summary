@@ -3,20 +3,28 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow Model Setup 'clk_60hz:comb_145|q'
-Slack : -2.934
-TNS   : -111.316
+Slack : -5.465
+TNS   : -445.256
 
 Type  : Slow Model Setup 'CLOCK_50'
-Slack : -2.825
-TNS   : -53.466
+Slack : -3.129
+TNS   : -59.614
+
+Type  : Slow Model Setup 'KEY[0]'
+Slack : 0.379
+TNS   : 0.000
 
 Type  : Slow Model Setup 'CLOCK_27'
-Slack : 33.227
+Slack : 33.437
 TNS   : 0.000
 
 Type  : Slow Model Setup 'p1|altpll_component|pll|clk[0]'
-Slack : 36.554
+Slack : 35.820
 TNS   : 0.000
+
+Type  : Slow Model Hold 'KEY[0]'
+Slack : -2.355
+TNS   : -9.294
 
 Type  : Slow Model Hold 'CLOCK_50'
 Slack : 0.391
@@ -31,20 +39,24 @@ Slack : 0.391
 TNS   : 0.000
 
 Type  : Slow Model Hold 'CLOCK_27'
-Slack : 0.802
+Slack : 0.742
 TNS   : 0.000
 
 Type  : Slow Model Recovery 'p1|altpll_component|pll|clk[0]'
-Slack : -3.895
-TNS   : -83.756
+Slack : -3.913
+TNS   : -83.656
 
 Type  : Slow Model Removal 'p1|altpll_component|pll|clk[0]'
-Slack : 3.478
+Slack : 3.475
 TNS   : 0.000
 
 Type  : Slow Model Minimum Pulse Width 'CLOCK_50'
 Slack : -1.380
 TNS   : -22.380
+
+Type  : Slow Model Minimum Pulse Width 'KEY[0]'
+Slack : -1.222
+TNS   : -5.222
 
 Type  : Slow Model Minimum Pulse Width 'clk_60hz:comb_145|q'
 Slack : -0.500
@@ -58,21 +70,29 @@ Type  : Slow Model Minimum Pulse Width 'p1|altpll_component|pll|clk[0]'
 Slack : 18.841
 TNS   : 0.000
 
-Type  : Fast Model Setup 'CLOCK_50'
-Slack : -0.815
-TNS   : -14.388
-
 Type  : Fast Model Setup 'clk_60hz:comb_145|q'
-Slack : -0.765
-TNS   : -9.988
+Slack : -2.524
+TNS   : -200.547
+
+Type  : Fast Model Setup 'CLOCK_50'
+Slack : -0.938
+TNS   : -16.871
+
+Type  : Fast Model Setup 'KEY[0]'
+Slack : 0.665
+TNS   : 0.000
 
 Type  : Fast Model Setup 'CLOCK_27'
-Slack : 35.268
+Slack : 35.348
 TNS   : 0.000
 
 Type  : Fast Model Setup 'p1|altpll_component|pll|clk[0]'
-Slack : 38.224
+Slack : 37.930
 TNS   : 0.000
+
+Type  : Fast Model Hold 'KEY[0]'
+Slack : -1.042
+TNS   : -4.073
 
 Type  : Fast Model Hold 'CLOCK_50'
 Slack : 0.215
@@ -87,20 +107,24 @@ Slack : 0.215
 TNS   : 0.000
 
 Type  : Fast Model Hold 'CLOCK_27'
-Slack : 0.359
+Slack : 0.341
 TNS   : 0.000
 
 Type  : Fast Model Recovery 'p1|altpll_component|pll|clk[0]'
-Slack : -2.435
-TNS   : -52.698
+Slack : -2.445
+TNS   : -52.665
 
 Type  : Fast Model Removal 'p1|altpll_component|pll|clk[0]'
-Slack : 2.232
+Slack : 2.231
 TNS   : 0.000
 
 Type  : Fast Model Minimum Pulse Width 'CLOCK_50'
 Slack : -1.380
 TNS   : -22.380
+
+Type  : Fast Model Minimum Pulse Width 'KEY[0]'
+Slack : -1.222
+TNS   : -5.222
 
 Type  : Fast Model Minimum Pulse Width 'clk_60hz:comb_145|q'
 Slack : -0.500

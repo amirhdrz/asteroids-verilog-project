@@ -82,10 +82,10 @@ clk_5seconds(
 wire shoot = (shootUp || shootDown);
 reg [3:0] fire;
 
-always @ (clk_60hz) begin
-	
-	if (clk_60hz) begin
-	@(posedge shoot) begin
+always @ (posedge shoot) begin
+
+		fire = 4'b0000; 
+		
 		if (~inUse[0])
 			fire[0] = 1'b1;
 		else if (~inUse[1])
@@ -94,9 +94,6 @@ always @ (clk_60hz) begin
 			fire[2] = 1'b1;
 		else if (~inUse[3])
 			fire[3] = 1'b1;
-	end 
-	
-	end else @(negedge clk_60hz)fire = 4'b0000;
 	
 end
 
