@@ -33,18 +33,11 @@ module Astroids(
 assign	GPIO_0		=	36'hzzzzzzzzz;
 assign	GPIO_1		=	36'hzzzzzzzzz;
 
-wire RST;
-assign RST = KEY[0];
+wire RST = 1'b1;
 
 // reset delay gives some time for peripherals to initialize
 wire DLY_RST;
 Reset_Delay r0(	.iCLK(CLOCK_50),.oRESET(DLY_RST) );
-
-// Send switches to red leds 
-assign LEDR = SW;
-
-// Turn off green leds
-assign LEDG = 8'h00;
 
 wire [6:0] blank = 7'b111_1111;
 
@@ -75,45 +68,62 @@ VGA_Audio_PLL 	p1 (
 	.c1(AUD_CTRL_CLK),
 	.c2(VGA_CLK)
 );
-
-//
+//=========================================================================
+/* Our code starts here */
+//=========================================================================
+// shipX connects to register holding
+// current X coordinate of the spaceship
 wire [9:0]shipX;
+
+// This wire contains signal for pixel data
+// from each module
 wire [15:0]BW;
 
+assign LEDG[3:0] = ~KEY[3:0]; //DEBUG
+
+/* 60Hz clock that logic of the game uses */
 wire sample_clk;
 clk_60hz (CLOCK_27,sample_clk);
 
-reg [14:0]reset = 14'b0;
+wire [14:0] reset = SW[14:0]; //DEBUG
 
+
+/* Spaceship */
 Spaceship c1(
-	.x(mCoord_X),
-	.y(mCoord_Y),
-	.BW(BW[0]),
-	.reset(reset[0]),
-	.shipX2(shipX),
+	.px(mCoord_X),
+	.py(mCoord_Y),
 	.clk_60hz(sample_clk),
 	.left(~KEY[3]),
-	.right(~KEY[2])
+	.right(~KEY[2]),
+	.reset(reset[0]),
+	.pixel(BW[0]),
+	.shipXOut(shipX)
 );
 
+/* Bullets manager */
 Bullet_Man Bm1(
-	.x(mCoord_X),
-	.y(mCoord_Y),
-	.pixel(BW[4:1]),
+	//input
+	.px(mCoord_X),
+	.py(mCoord_Y),
 	.clk_60hz(sample_clk),
+	.shipX(shipX),
 	.shootUp(~KEY[1]),
 	.shootDown(~KEY[0]),
-	.shipx(shipX),
-	.reset(reset[4:1])
+	.reset(reset[4:1]),
+	//output
+	.pixel(BW[4:1]),
+	.DEBUG(LEDR[9:0])
 );
 
+/* Rocks manager */
+/*
 Rocks_Man(
 	.px(mCoord_X),
 	.py(mCoord_Y),
 	.clk60hz(sample_clk),
 	.reset(reset[14:5]),
 	.pixel(BW[14:5])
-);
+);*/
 
 /* Convert pixel values to RGB */
 wire pixel;
@@ -125,7 +135,7 @@ assign mVGA_B = (pixel? 10'h3ff : 10'h000);
 
 vga_sync u1(
    .iCLK(VGA_CTRL_CLK),
-   .iRST_N(DLY_RST&KEY[0]),	
+   .iRST_N(DLY_RST),	
    .iRed(mVGA_R),
    .iGreen(mVGA_G),
    .iBlue(mVGA_B),

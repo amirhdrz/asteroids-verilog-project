@@ -25,35 +25,47 @@ output reg pixel,
 // Output is high when this astroid is active
 output reg inUse);
 
+/* Screen border parameters*/
+parameter borderXi = -15;
+parameter borderXf = 655;
+parameter borderYi = -15;
+parameter borderYf = 480;
+
 /* Registers */
 // Rock's position on the screen
 reg [9:0] rockX;
 reg [9:0] rockY;
 
-always @ (posedge clk60hz) begin
-	// Initialization
-	if ( start == 1'b1 ) begin
-		inUse <= 1'b1;
-		rockX <= initialX;
-		rockY <= initialY;
-	end else if ( reset == 1'b1 ) begin
+/* Movement generator and initialization based on 60hz clock and reset */
+always @ (posedge clk60hz or posedge reset) begin
+	
+	if (reset) begin
 		inUse <= 1'b0;
-	end
-
-	// Movement
-	if ( inUse == 1'b1 ) begin
-		if (dirX[2] == 1'b0) begin
-				rockX <= rockX + dirX[1:0];
-		end else begin
-				rockX <= rockX - dirX[1:0];
-		end
+	end else begin
 		
-		if (dirY[2] == 1'b0) begin
-			rockY <= rockY + dirY[1:0];
+		if (~inUse) begin
+			// if not inUse and start signal is high, initialize
+			if (start) begin
+				inUse <= 1'b1;
+				rockX <= initialX;
+				rockY <= initialY;
+			end
+			
 		end else begin
-			rockY <= rockY - dirY[1:0];
+			// if in use, calculate next coordinates on 60hz clock
+			if (dirX[2] == 1'b0) begin
+					rockX <= rockX + dirX[1:0];
+			end else begin
+					rockX <= rockX - dirX[1:0];
+			end
+			
+			if (dirY[2] == 1'b0) begin
+				rockY <= rockY + dirY[1:0];
+			end else begin
+				rockY <= rockY - dirY[1:0];
+			end
 		end
-	end
+	end //if (~reset)
 end
 
 
@@ -65,26 +77,6 @@ begin
 	else if((px-10)<rockX && (px+10)>rockX && (py-12)<rockY&& (py+12)>rockY )
 		pixel=1'b1;
 	else pixel=1'b0;
-		
 end
-
-endmodule
-
-endmodule
-
-module clk_60hz (input clk, output reg q);
-
-reg [18:0] counter=19'b0000000000000000000;
-	always @ (posedge clk) begin
-		counter <= counter + 1;
-		
-		if (counter == 450000) begin
-			q <= 1;
-			counter <=0;
-		end
-		else q <= 0;
-		
-	end
-		
 
 endmodule

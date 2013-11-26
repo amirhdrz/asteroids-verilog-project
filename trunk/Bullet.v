@@ -1,43 +1,52 @@
 module Bullet(
-input [9:0] x,
-input [9:0] y,
+input [9:0] px,
+input [9:0] py,
 input clk_60hz,
 
-input direction,
 input start_bullet,
+input direction, // high for going up, low for going down
 input reset,
 input [9:0]shipX,
 
-output BW,
-output inUse
+output reg pixel,
+output reg inUse
 ); 
-	assign BW = ((x-1)<bulletX && (x+1)>bulletX && (y-1)<bulletY&&(y+1)>bulletY);
-	
-	assign inUse= inUse1;
-	
-	reg inUse1=0;
-	reg[9:0] bulletX,bulletY;
-	reg bullet_direction;
-	
-	always @(clk_60hz) begin
-		if (reset||
-			inUse1 && direction && (bulletY> 9'd480)||
-			inUse1 && ~direction && (bulletY> 9'd0)) begin
-				inUse1 = 1'b0;
-				bulletX = 9'd800;		
-				bulletY = 9'd500;		
-			end
-		else if (start_bullet&& ~inUse1)begin
-			inUse1 = 1'b1;
-			bulletX = shipX;
-			bulletY = 9'd240;
-			bullet_direction = direction;
-			end
-		else if(bullet_direction)
-			bulletY=bulletY+2;
-		else
-			bulletY=bulletY-2;
-		
-	end
-	
+
+// Registers holding bullet positon
+reg [9:0] bulletX;// = 10'd320;//DEBUG
+reg [9:0] bulletY;// = 10'd240;//DEBUG
+reg bullet_direction;
+
+/* Movement generator and initialization based on 60hz clock and reset */
+always @(posedge clk_60hz or posedge reset) begin
+
+	if (reset) begin
+		inUse <= 1'b0;
+	end else begin
+		if (~inUse && start_bullet) begin
+			// if not in use and start signal is high, initialize
+			inUse = 1'b1;
+			bullet_direction <= direction;
+			bulletX <= shipX;
+			bulletY <= 10'd240;
+		end else if (inUse) begin
+			// if inUse, calculate the next coordinates
+			if(bullet_direction == 1'b1)
+				bulletY <= bulletY - 10'd2;
+			else if (bullet_direction == 1'b0)
+				bulletY <= bulletY + 10'd2;
+		end
+	end	
+end
+
+/* Display Generator */
+always @ (px) begin
+		if((px-4)<bulletX && (px+4)>bulletX && (py-8)<bulletY && (py+8)>bulletY ) begin
+			if (inUse)
+				pixel = 1'b1;
+		end else
+			pixel = 1'b0;
+end
+
+
 endmodule

@@ -1,6 +1,6 @@
 module Spaceship(
-input [9:0] x,
-input [9:0] y,
+input [9:0] px,
+input [9:0] py,
 input clk_60hz, 
 
 input left, 
@@ -8,33 +8,38 @@ input right,
 input reset,
 
 output reg pixel,
-output [9:0]shipX2);
+output [9:0]shipXOut);
 
 reg [9:0] shipX = 10'd320;
 reg [9:0] shipY = 10'd240;
 
-assign shipX2 = shipX;
+// Send out a signal containing ships current position
+assign shipXOut = shipX;
 
-always @(posedge clk_60hz) begin
+/* Movement and reset*/
+always @(posedge clk_60hz or posedge reset) begin
+	
 	if(reset)begin
 		shipX <= 10'd320;
 		shipY <= 10'd240;
+	end else begin
+		if(left && (shipX > 10'd12)) begin
+			shipX <= shipX - 10'd2;
+		end
+		else if(right && (shipX < 10'd628)) begin
+			shipX <= shipX + 10'd2;
+		end
 	end
-	
-	if(left && (shipX<12))
-		shipX <= shipX-2;
-	else if(right&& (shipX>628))
-		shipX <= shipX+2;
 end
 
 
 /* Display generator */
-always @(x)
+always @(px)
 begin
 	
-	if((x-10)<shipX && (x+10)>shipX&&(y-10)<shipY && (y+10)>shipY )
+	if((px-15)<shipX && (px+15)>shipX&&(py-6)<shipY && (py+6)>shipY )
 		pixel=1'b1;
-	else if((x-1)<shipX && (x+1)>shipX&&(y-12)<shipY && (y+12)>shipY )
+	else if((px-1)<shipX && (px+1)>shipX&&(py-7)<shipY && (py+7)>shipY )
 		pixel=1'b1;
 	else pixel=1'b0;
 

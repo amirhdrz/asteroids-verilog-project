@@ -1,14 +1,14 @@
 module fib_16bit (Clk, Q);
 	 input Clk;
-	 output Q;
+	 output [15:0] Q;
 	 
-	 reg [15:0]SEED = 16'b0010000100100001;
+	 reg [15:0]SEED = 16'b0011010100101001;
 	 
 	 always @(posedge Clk) begin
-	  SEED<={SEED[14:0],SEED[10]^ (SEED[12]^  (SEED[13]^SEED[15])  ) };
+	  SEED<={SEED[14:0],SEED[10]^ (SEED[12]^  (SEED[13]^SEED[15]))};
 	 end
 	 
-	 assign Q=SEED;
+	 assign Q = SEED;
 endmodule
 
 /* Generates a random direction based on a 16 bit random input */
@@ -22,7 +22,7 @@ module randomDir(in, out);
 	assign out[2] = in[2];
 endmodule
 
-/* 2 second rocket generator */
+/* 2 second rocket counter */
 module Clk2sec( input clk60hz, output reg q);
 	reg [6:0] counter=7'b0000000;
 	always @ (posedge clk60hz) begin
@@ -47,6 +47,7 @@ input [9:0] reset,
 output [9:0] pixel
 );
 
+	/* this signal is connected to each rock and can be used to monitor if each rock is in use */
 	wire [9:0] rocks_in_use;
 	
 	/* Random number generator */
@@ -61,14 +62,14 @@ output [9:0] pixel
 	randomDir(randomX, ranDirX);
 	randomDir(randomY, ranDirY);
 	
-	/* Random rocket firing */
+	/* Random rocks spawning */
 	wire spawn;
 	reg [9:0] fire;
 	Clk2sec(clk60hz, spawn);
 	
 	always @ (posedge spawn) begin
 		//reset fire before firing again
-		fire = 0;
+		fire = 10'd0;
 		
 		if (rocks_in_use[0] == 1'b0)
 			fire[0] = 1'b1;
@@ -124,6 +125,38 @@ output [9:0] pixel
 	//outputs
 	.pixel(pixel[1]),
 	.inUse(rocks_in_use[1]));
+	
+	/* Rock 2 */
+	Rocks(
+	//inputs
+	.px(px),
+	.py(py),
+	.initialX(randomX[9:0]),
+	.initialY(randomY[9:0]),
+	.dirX(ranDirX),
+	.dirY(ranDirY),
+	.start(fire[2]),
+	.reset(reset[2]),
+	.clk60hz(clk60hz),
+	//outputs
+	.pixel(pixel[2]),
+	.inUse(rocks_in_use[2]));
+	
+	/* Rock 3 */
+	Rocks(
+	//inputs
+	.px(px),
+	.py(py),
+	.initialX(randomX[9:0]),
+	.initialY(randomY[9:0]),
+	.dirX(ranDirX),
+	.dirY(ranDirY),
+	.start(fire[3]),
+	.reset(reset[3]),
+	.clk60hz(clk60hz),
+	//outputs
+	.pixel(pixel[3]),
+	.inUse(rocks_in_use[3]));
 
 
 endmodule
