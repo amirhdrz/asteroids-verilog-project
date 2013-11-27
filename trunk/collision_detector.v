@@ -1,6 +1,7 @@
 module collision_detector(
 	input clk_60hz,
-	input px,
+	input [9:0] px,
+	input [9:0] py,
 	input [14:0] pixels, // pixel signal from all objects
 	input reset_game,
 	
@@ -23,20 +24,30 @@ module collision_detector(
 			reset <= 15'b111111111111111; // reset all objects
 			score <= 16'b0;
 			lives <= 2'd3;
-			
 		end else begin
-			reset = 15'b0;
-			if (bullets && rocks) begin
+			// Reset reset signal
+			reset = 15'b0; 
+			
+			// Screen border collision detection
+			if ((px > 10'd660) || (py > 10'd500)) begin
+				reset <= pixels;
+			end else begin//
+			
 				// if bullets and rocks collide
-				score <= score + 16'b1;
-				reset <= pixels;
-			end else if (space_ship && rocks) begin
+				if (bullets && rocks) begin
+					score <= score + 16'b1;
+					reset <= pixels;
+					
 				// if space_ship and rocks collide
-				lives <= lives - 2'b1;
-				reset <= pixels;
-				if (lives == 2'b0)
-					game_over <= 1'b1;
+				end else if (space_ship && rocks) begin
+					// if space_ship and rocks collide
+					lives <= lives - 2'b1;
+					reset <= pixels;
+					if (lives == 2'b0)
+						game_over <= 1'b1;
+				end
 			end
+			
 		end
 	end
 

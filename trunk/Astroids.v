@@ -42,14 +42,23 @@ Reset_Delay r0(	.iCLK(CLOCK_50),.oRESET(DLY_RST) );
 wire [6:0] blank = 7'b111_1111;
 
 // blank unused 7-segment digits
-assign HEX0 = blank;
-assign HEX1 = blank;
-assign HEX2 = blank;
-assign HEX3 = blank;
+//assign HEX0 = blank;
+//assign HEX1 = blank;
+//assign HEX2 = blank;
+//assign HEX3 = blank;
 assign HEX4 = blank;
 assign HEX5 = blank;
 assign HEX6 = blank;
-assign HEX7 = blank;
+//assign HEX7 = blank;
+
+//================================================
+/* Displaying high score */
+//------------------------------------------------
+hex_7seg(current_score[3:0], HEX0);
+hex_7seg(current_score[7:4], HEX1);
+hex_7seg(current_score[11:8], HEX2);
+hex_7seg(current_score[15:12], HEX3);
+hex_7seg({2'b00,lives}, HEX7);
 
 wire		VGA_CTRL_CLK;
 wire		AUD_CTRL_CLK;
@@ -86,10 +95,11 @@ clk_60hz (CLOCK_27,sample_clk);
 /* Signals and Registers*/
 reg [15:0] high_score;
 wire [14:0] reset;
-wire [15:0] score;
+wire [15:0] current_score;
 wire [1:0] lives;
 wire game_over;
 wire reset_game = SW[17];
+wire [3:0] bullets; //Bullts in use
 
 /* For when player wants a new game */
 /*always @ (posedge new_game) begin
@@ -111,6 +121,8 @@ Spaceship c1(
 	.left(~KEY[3]),
 	.right(~KEY[2]),
 	.reset(reset[0]),
+	.bullets(bullets),
+	//outputs
 	.pixel(BW[0]),
 	.shipXOut(shipX)
 );
@@ -126,8 +138,8 @@ Bullet_Man Bm1(
 	.shootDown(~KEY[0]),
 	.reset(reset[4:1]),
 	//output
-	.pixel(BW[4:1]),
-	.DEBUG(LEDR[9:0])
+	.inUse(bullets),
+	.pixel(BW[4:1])
 );
 
 /* Rocks manager */
@@ -144,14 +156,15 @@ collision_detector(
 	//inputs
 	.clk_60hz(sample_clk),
 	.px(mCoord_X),
+	.py(mCoord_Y),
 	.pixels(BW), // pixel signal from all objects
 	.reset_game(reset_game),
 	//outputs
 	.reset(reset), // reset signal to all objects
 	.game_over(game_over), // goes high when number of lives reaches zero
-	.score(score),
+	.score(current_score),
 	.lives(lives)
-	);
+);
 
 /* Convert pixel values to RGB */
 wire pixel = |BW;

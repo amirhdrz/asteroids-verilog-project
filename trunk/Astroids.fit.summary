@@ -1,14 +1,14 @@
-Fitter Status : Successful - Tue Nov 26 16:54:26 2013
+Fitter Status : Successful - Wed Nov 27 02:18:32 2013
 Quartus II 32-bit Version : 11.1 Build 259 01/25/2012 SP 2 SJ Web Edition
 Revision Name : Astroids
 Top-level Entity Name : Astroids
 Family : Cyclone II
 Device : EP2C35F672C6
 Timing Models : Final
-Total logic elements : 1,114 / 33,216 ( 3 % )
-    Total combinational functions : 1,104 / 33,216 ( 3 % )
-    Dedicated logic registers : 293 / 33,216 ( < 1 % )
-Total registers : 293
+Total logic elements : 1,420 / 33,216 ( 4 % )
+    Total combinational functions : 1,392 / 33,216 ( 4 % )
+    Dedicated logic registers : 325 / 33,216 ( < 1 % )
+Total registers : 325
 Total pins : 215 / 475 ( 45 % )
 Total virtual pins : 0
 Total memory bits : 0 / 483,840 ( 0 % )

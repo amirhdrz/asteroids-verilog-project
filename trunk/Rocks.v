@@ -25,12 +25,6 @@ output reg pixel,
 // Output is high when this astroid is active
 output reg inUse);
 
-/* Screen border parameters*/
-parameter borderXi = -15;
-parameter borderXf = 655;
-parameter borderYi = -15;
-parameter borderYf = 480;
-
 /* Registers */
 // Rock's position and direction on the screen
 reg [9:0] rockX, rockY;
@@ -73,13 +67,15 @@ end
 
 
 /* Display generator */
-always @(px)
-begin
-	if((px-12)<rockX && (px+12)>rockX && (py-10)<rockY&& (py+10)>rockY )
-		pixel=1'b1;
-	else if((px-10)<rockX && (px+10)>rockX && (py-12)<rockY&& (py+12)>rockY )
-		pixel=1'b1;
-	else pixel=1'b0;
+always @(px) begin
+	pixel = 1'b0;
+	if (inUse) begin
+		if((px-12)<rockX && (px+12)>rockX && (py-10)<rockY&& (py+10)>rockY )
+			pixel=1'b1;
+		else if((px-10)<rockX && (px+10)>rockX && (py-12)<rockY&& (py+12)>rockY )
+			pixel=1'b1;
+		//else pixel=1'b0; DEBUG MAY NEED TO REVERT
+	end
 end
 
 endmodule

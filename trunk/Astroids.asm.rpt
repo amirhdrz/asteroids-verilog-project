@@ -1,5 +1,5 @@
 Assembler report for Astroids
-Tue Nov 26 16:54:33 2013
+Wed Nov 27 02:18:38 2013
 Quartus II 32-bit Version 11.1 Build 259 01/25/2012 Service Pack 2 SJ Web Edition
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Tue Nov 26 16:54:33 2013 ;
+; Assembler Status      ; Successful - Wed Nov 27 02:18:38 2013 ;
 ; Revision Name         ; Astroids                              ;
 ; Top-level Entity Name ; Astroids                              ;
 ; Family                ; Cyclone II                            ;
@@ -95,7 +95,7 @@ applicable agreement for further details.
 +----------------+-----------------------+
 ; Device         ; EP2C35F672C6          ;
 ; JTAG usercode  ; 0xFFFFFFFF            ;
-; Checksum       ; 0x003BAD5A            ;
+; Checksum       ; 0x003F1AE2            ;
 +----------------+-----------------------+
 
 
@@ -106,7 +106,7 @@ applicable agreement for further details.
 +--------------------+-------------------+
 ; Device             ; EPCS16            ;
 ; JTAG usercode      ; 0x00000000        ;
-; Checksum           ; 0x1C65AB57        ;
+; Checksum           ; 0x1C62A65F        ;
 ; Compression Ratio  ; 3                 ;
 +--------------------+-------------------+
 
@@ -117,14 +117,14 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Assembler
     Info: Version 11.1 Build 259 01/25/2012 Service Pack 2 SJ Web Edition
-    Info: Processing started: Tue Nov 26 16:54:30 2013
+    Info: Processing started: Wed Nov 27 02:18:35 2013
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off asteroids-verilog-project -c Astroids
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus II 32-bit Assembler was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 358 megabytes
-    Info: Processing ended: Tue Nov 26 16:54:33 2013
+    Info: Processing ended: Wed Nov 27 02:18:38 2013
     Info: Elapsed time: 00:00:03
-    Info: Total CPU time (on all processors): 00:00:03
+    Info: Total CPU time (on all processors): 00:00:02
 
 

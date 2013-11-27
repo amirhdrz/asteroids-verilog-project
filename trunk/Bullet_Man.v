@@ -7,19 +7,13 @@ input [9:0]shipX,
 input shootUp,
 input shootDown,
 input [3:0]reset,
-output [9:0] DEBUG,
 
+output [3:0] inUse,
 output [3:0]pixel
 );
 
-wire fire_delay;
-wire [3:0] inUse;
-
 wire direction;
 assign direction = shootUp;
-
-assign DEBUG[3:0] = inUse; //DEBUG
-assign DEBUG[7:4] = fire; //DEBUG
 
 Bullet B0(
 	.px(px),
@@ -29,6 +23,7 @@ Bullet B0(
 	.start_bullet(fire[0]),
 	.reset(reset[0]),
 	.shipX(shipX),
+	//outputs
 	.pixel(pixel[0]),
 	.inUse(inUse[0])
 );
