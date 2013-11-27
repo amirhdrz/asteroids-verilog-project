@@ -79,14 +79,29 @@ wire [9:0]shipX;
 // from each module
 wire [15:0]BW;
 
-assign LEDG[3:0] = ~KEY[3:0]; //DEBUG
-
 /* 60Hz clock that logic of the game uses */
 wire sample_clk;
 clk_60hz (CLOCK_27,sample_clk);
 
-wire [14:0] reset = SW[14:0]; //DEBUG
+/* Signals and Registers*/
+reg [15:0] high_score;
+wire [14:0] reset;
+wire [15:0] score;
+wire [1:0] lives;
+wire game_over;
+wire reset_game = SW[17];
 
+/* For when player wants a new game */
+/*always @ (posedge new_game) begin
+	//current_score <= 16'b0;
+	//current_lives <= 2'd3;
+end*/
+
+/* Set high score when game ends */
+always @ (posedge game_over) begin
+	if (high_score < current_score)
+		high_score <= current_score;
+end
 
 /* Spaceship */
 Spaceship c1(
@@ -116,7 +131,6 @@ Bullet_Man Bm1(
 );
 
 /* Rocks manager */
-
 Rocks_Man(
 	.px(mCoord_X),
 	.py(mCoord_Y),
@@ -125,9 +139,22 @@ Rocks_Man(
 	.pixel(BW[14:5])
 );
 
+/* Collision detector and score and life counter */
+collision_detector(
+	//inputs
+	.clk_60hz(sample_clk),
+	.px(mCoord_X),
+	.pixels(BW), // pixel signal from all objects
+	.reset_game(reset_game),
+	//outputs
+	.reset(reset), // reset signal to all objects
+	.game_over(game_over), // goes high when number of lives reaches zero
+	.score(score),
+	.lives(lives)
+	);
+
 /* Convert pixel values to RGB */
-wire pixel;
-assign pixel = |BW;
+wire pixel = |BW;
 
 assign mVGA_R = (pixel? 10'h3ff : 10'h000);
 assign mVGA_G = (pixel? 10'h3ff : 10'h000);

@@ -12,8 +12,6 @@ output [9:0] DEBUG,
 output [3:0]pixel
 );
 
-//reg [3:0]direction; //not usedanymore
-//reg [3:0]start_bullet; //not used anymore 
 wire fire_delay;
 wire [3:0] inUse;
 
@@ -68,15 +66,6 @@ Bullet B3(
 	.pixel(pixel[3]),
 	.inUse(inUse[3])
 );
-
-
-/*
-clk_5seconds(
-	clk_60hz,
-	clk_5seconds,
-	ready,
-	start);
-*/
 
 /* Shooting mechanism */
 wire shoot = (shootUp || shootDown);

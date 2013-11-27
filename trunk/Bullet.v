@@ -13,22 +13,16 @@ output reg inUse
 ); 
 
 // Registers holding bullet positon
-reg [9:0] bulletX;// = 10'd320;//DEBUG
-reg [9:0] bulletY;// = 10'd240;//DEBUG
+reg [9:0] bulletX;//
+reg [9:0] bulletY;//
 reg bullet_direction;
-reg border = 1'b0;
 
 /* Movement generator and initialization based on 60hz clock and reset */
 always @(posedge clk_60hz or posedge reset) begin
 
 	if (reset) begin
 		inUse <= 1'b0;
-	end
-	else if (border) begin
-		inUse <= 1'b0;
-		border <= 1'b0;
-	end
-	else begin
+	end else begin
 		if (~inUse && start_bullet) begin
 			// if not in use and start signal is high, initialize
 			inUse = 1'b1;
@@ -41,8 +35,6 @@ always @(posedge clk_60hz or posedge reset) begin
 				bulletY <= bulletY - 10'd2;
 			else if (bullet_direction == 1'b0)
 				bulletY <= bulletY + 10'd2;
-			if (bulletY > 480)
-				border <= 1'b1;
 		end
 	end	
 end
