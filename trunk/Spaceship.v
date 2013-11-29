@@ -53,8 +53,7 @@ always @(px) begin
 		pixel=1'b1;
 	else if( (py == (shipY+2)) && px>=(shipX+4) && px<=(shipX+28))
 		pixel=1'b1;
-		
-		
+			
 	else if( (py == (shipY+3)) && px>=(shipX+2) && px<=(shipX+30))
 		pixel=1'b1;
 	else if( (py == (shipY+4)) && px>=(shipX+2) && px<=(shipX+30))

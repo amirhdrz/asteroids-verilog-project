@@ -65,16 +65,81 @@ always @ (posedge clk60hz or posedge reset) begin
 	end //if (~reset)
 end
 
-
-/* Display generator */
+/* New Rocks Display Generator */
 always @(px) begin
-	pixel = 1'b0;
-	if (inUse) begin
-		if((px-12)<rockX && (px+12)>rockX && (py-10)<rockY&& (py+10)>rockY )
+	pixel=1'b0;
+	
+	if(inUse) begin
+		if( (py==rockY) && px>=(rockX+8) && px<=(rockX+22))
 			pixel=1'b1;
-		else if((px-10)<rockX && (px+10)>rockX && (py-12)<rockY&& (py+12)>rockY )
+		else if( (py == (rockY+1)) && px>=(rockX+9) && px<=(rockX+24) )
 			pixel=1'b1;
-		//else pixel=1'b0; DEBUG MAY NEED TO REVERT
+		else if( (py == (rockY+2)) && px>=(rockX+10) && px<=(rockX+25))
+			pixel=1'b1;
+		else if( (py == (rockY+3)) && px>=(rockX+10) && px<=(rockX+27))
+			pixel=1'b1;
+		else if( (py == (rockY+4)) && px>=(rockX+11) && px<=(rockX+29))
+			pixel=1'b1;
+		else if( (py == (rockY+5)) && px>=(rockX+12) && px<=(rockX+30))
+			pixel=1'b1;
+		else if( (py == (rockY+6)) && px>=(rockX+12) && px<=(rockX+32))
+			pixel=1'b1;
+		else if( (py == (rockY+7)) && px>=(rockX+0) && px<=(rockX+34))
+			pixel=1'b1;
+		else if( (py == (rockY+8)) && px>=(rockX+0) && px<=(rockX+34))
+			pixel=1'b1;
+		else if( (py == (rockY+9)) && px>=(rockX+0) && px<=(rockX+34))
+			pixel=1'b1;
+		else if( (py == (rockY+10)) && px>=(rockX+0) && px<=(rockX+34))
+			pixel=1'b1;
+		else if( (py == (rockY+11)) && px>=(rockX+0) && px<=(rockX+34))
+			pixel=1'b1;
+		else if( (py == (rockY+12)) && px>=(rockX+0) && px<=(rockX+32))
+			pixel=1'b1;
+		else if( (py == (rockY+13)) && px>=(rockX+0) && px<=(rockX+28))
+			pixel=1'b1;
+		else if( (py == (rockY+14)) && px>=(rockX+0) && px<=(rockX+24))
+			pixel=1'b1;
+		else if( (py == (rockY+15)) && px>=(rockX+0) && px<=(rockX+23))
+			pixel=1'b1;
+		else if( (py == (rockY+16)) && px>=(rockX+0) && px<=(rockX+24))
+			pixel=1'b1;
+		else if( (py == (rockY+17)) && px>=(rockX+0) && px<=(rockX+26))
+			pixel=1'b1;
+		else if( (py == (rockY+18)) && px>=(rockX+0) && px<=(rockX+28))
+			pixel=1'b1;
+		else if( (py == (rockY+19)) && px>=(rockX+0) && px<=(rockX+29))
+			pixel=1'b1;
+		else if( (py == (rockY+20)) && px>=(rockX+1) && px<=(rockX+30))
+			pixel=1'b1;
+		else if( (py == (rockY+21)) && px>=(rockX+2) && px<=(rockX+31))
+			pixel=1'b1;
+		else if( (py == (rockY+22)) && px>=(rockX+3) && px<=(rockX+32))
+			pixel=1'b1;
+		else if( (py == (rockY+23)) && px>=(rockX+3) && px<=(rockX+33))
+			pixel=1'b1;
+		else if( (py == (rockY+24)) && px>=(rockX+4) && px<=(rockX+32))
+			pixel=1'b1;
+		else if( (py == (rockY+25)) && px>=(rockX+5) && px<=(rockX+31))
+			pixel=1'b1;
+		else if( (py == (rockY+26)) && px>=(rockX+6) && px<=(rockX+30))
+			pixel=1'b1;
+		else if( (py == (rockY+27)) && px>=(rockX+6) && px<=(rockX+16))
+			pixel=1'b1;
+		else if( (py == (rockY+27)) && px>=(rockX+22) && px<=(rockX+29))
+			pixel=1'b1;
+		else if( (py == (rockY+28)) && px>=(rockX+7) && px<=(rockX+14))
+			pixel=1'b1;
+		else if( (py == (rockY+28)) && px>=(rockX+24) && px<=(rockX+28))
+			pixel=1'b1;
+		else if( (py == (rockY+29)) && px>=(rockX+8) && px<=(rockX+12))
+			pixel=1'b1;
+		else if( (py == (rockY+29)) && px>=(rockX+24) && px<=(rockX+26))
+			pixel=1'b1;
+		else if( (py == (rockY+30)) && px>=(rockX+8) && px<=(rockX+9))
+			pixel=1'b1;
+		else if( (py == (rockY+30)) && px>=(rockX+25) && px<=(rockX+26))
+			pixel=1'b1;
 	end
 end
 
